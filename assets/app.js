@@ -1,6 +1,17 @@
 //SEARCH FARMERS MARKETS BY ZIPCODE 
 //API
 
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAJQVW0Y5UfYDyiF4udSmi8OlWvb_x2tas",
+    authDomain: "farmer-s-market-dd1bd.firebaseapp.com",
+    databaseURL: "https://farmer-s-market-dd1bd.firebaseio.com",
+    projectId: "farmer-s-market-dd1bd",
+    storageBucket: "farmer-s-market-dd1bd.appspot.com",
+    messagingSenderId: "1044283229575"
+  };
+  firebase.initializeApp(config);
+
 function getResults(zip) {
     // or
     // function getResults(lat, lng) {
