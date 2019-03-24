@@ -3,33 +3,39 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>New Branch</title>
+    <title>Farmers Market Finder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="assets/app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    
+        <!-- //Maps Javascript API -->
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFRyu277w4V5p1mjxGseqqo1yRXqBRbBw&callback=initMap">
+      </script>
 
     <div class="container">
 
         <div class="row">
-            <div class="col m9 map-container teal lighten-4"> Map will go here
+            <div class="col m9 map-container teal lighten-4" id="map"> Map will go here
                 
             </div>
-            <div class="col m3 sidebar teal lighten-2"> This is the sidebar
+            <div class="col m3 sidebar teal lighten-2">
                 <div>
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Search by Zip
-                    <i class="material-icons right"></i>
-                    </button>
+                    
                 </div>
                 <div class="input-field col search-bar blue-grey lighten-4">
-                    <i class="material-icons prefix"></i>
+
+                    <i class="fas fa-search"></i>
                     <input type="text" id="autocomplete-input" class="autocomplete">
-                    <label for="autocomplete-input"></label>
+                    <br>
+                    <label for="autocomplete-input">Search by zip</label>
                 </div>
+                <!-- This div will yield our results when we click a point on the map? -->
+                <div class="results"></div>
                           
             </div>
 
