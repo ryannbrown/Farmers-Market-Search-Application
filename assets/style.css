@@ -12,8 +12,14 @@
 }
 
 .btn{
+    margin-left:50%;
     height:50%;
 }
 
 .search-bar{
+    margin-left:25%;
+}
+
+.fas fa-search{
+    
 }
