@@ -15,29 +15,28 @@
 //---------------------------------------------------------------------------------
 //SEARCH FARMERS MARKETS BY ZIPCODE 
 //API
-window.onload = function() {
-function getResults(zip) {
-    $.ajax({
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
-        dataType: 'jsonp',
-        jsonpCallback: 'searchResultsHandler'
-    })
+    function getResults(zip) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
+            // or
+            // url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng,
+            dataType: 'jsonp',
+            jsonpCallback: 'searchResultsHandler'
+        });
+    }
 
-}
-
-searchResultsHandler(searchResults) 
-for (var key in searchresults) {
-    alert(key);
-    var results = searchresults[key];
-    // console.log(results);
-    for (var i = 0; i < results.length; i++) {
-        var result = results[i];
-        for (var key in result) {
-            //only do an alert on the first search result
-            if (i == 0) {
-                alert(result[key]);
+function searchResultsHandler(searchResults) {
+    for (var key in searchresults) {
+        alert(key);
+        var results = searchresults[key];
+        for (var i = 0; i < results.length; i++) {
+            var result = results[i];
+            for (var key in result) {
+                if (i == 0) {
+                    alert(result[key]);
+                }
             }
         }
     }
@@ -48,18 +47,18 @@ for (var key in searchresults) {
 //-------------------------------------------------------------------------
 // This makes our map work
 var map;
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 35.7796, lng: -78.6382},
-        zoom: 9
-    })
-}
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 35.7796, lng: -78.6382},
+          zoom: 9
+        });
+      };
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    // var instances = M.Sidenav.init(elems, options);
-})
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        // var instances = M.Sidenav.init(elems, options);
+      });
 
 // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
 // var collapsibleElem = document.querySelector('.collapsible');
@@ -74,6 +73,6 @@ $(document).ready(function(){
     //   $('.sidenav').sidenav();
     })
 
-})
+});
 
-};
+
