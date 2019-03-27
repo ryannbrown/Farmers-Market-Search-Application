@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Farmers Market Finder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <script src="assets/app.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/style.css">
-    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    
 </head>
 <body>
         <!-- //Maps Javascript API -->
@@ -31,17 +32,21 @@
                 </div>
                 <div class="input-field col search-bar blue-grey lighten-4">
 
-                    <button type="submit" class="fas fa-search"></button>
+                    <button id="submit" type="submit" class="fas fa-search mb-4"></button>
                     <input type="text" id="autocomplete-input" class="autocomplete">
                     <br>
-                    <label for="autocomplete-input">Search by zip</label>
+                    <label for="autocomplete-input">Zip</label>
                 </div>
                 <!-- This div will yield our results when we click a point on the map? -->
-                <div class="results"></div>
+                <div class="row" id="ajaxResults">
+                    <p>Market ID and Name:</p>
+                </div>
                           
             </div>
 
         </div>
+
+    
 
 
 
@@ -52,5 +57,7 @@
 
 
     </div>
+
+    <script src="assets/app.js"></script>
 </body>
 </html>
