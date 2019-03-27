@@ -56,22 +56,28 @@ function getMarketIdFromZipCode(zip) {
 		//OBJECT RESULTS FROM THE AJAX RESPONSE IS BEING DEFINED IN RESULTS VARIABLE
 		var results = response.results;
 		//BUILDS BEGINNING OF A COLLAPSIBLE LIST
-		var marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
+		//var marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
 
 		//LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME
 		for (var i = 0; i < results.length; i++) {
 			id = results[i].id;
 			name = results[i].marketname;
-
-      alert(id + name);
-			var popoutHeader =$("<div id='" +	id +"' " + name +	'</div>');
-			var popoutBody = $("<div class='collapsible-body'><span>Lorem Ipsum</span></div>");
-			var listItem = $('<li>');
-
+      
+      console.log(id + name);
+      // var listItem = $('<li>');
+     
 			// append each returned result as a list item to the DOM
-			marketList.append(listItem + popoutHeader + popoutBody);
-			$('#ajaxResults').append(marketList);
-		}
+      // $("#marketList").html("<li>" + id + name + "</li>")
+      $("#marketList").append(name)
+      // $("#marketList").text(id)
+      
+			// $('#ajaxResults').append(marketList);
+    }
+    
+  // listItem.append(popoutHeader);
+	// 		$('#ajaxResults').append(marketList, );
+    // }
+
 	});
 }
 
