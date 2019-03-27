@@ -53,25 +53,24 @@ function getMarketIdFromZipCode(zip) {
 		dataType: 'jsonp',
 		jsonpCallback: 'searchResultsHandler'
 	}).done(function(response) {
-    //OBJECT RESULTS FROM THE AJAX RESPONSE IS BEING DEFINED IN RESULTS VARIABLE
-    var results = response.results; 
-    //BUILDS BEGINNING OF A COLLAPSIBLE LIST
-    var popoutList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
+		//OBJECT RESULTS FROM THE AJAX RESPONSE IS BEING DEFINED IN RESULTS VARIABLE
+		var results = response.results;
+		//BUILDS BEGINNING OF A COLLAPSIBLE LIST
+		var marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
 
-    //LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME 
+		//LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME
 		for (var i = 0; i < results.length; i++) {
-      
 			id = results[i].id;
-      name = results[i].marketname;
-      // $('#displayResults').append(id);
+			name = results[i].marketname;
 
-      var popoutHeader = $("<div id='" + id + "' " + name + "</div>");
-      var popoutBody = $("<div class='collapsible-body'><span>Lorem Ipsum</span></div>");
-      var listItem = $("<li>");
+      alert(id + name);
+			var popoutHeader =$("<div id='" +	id +"' " + name +	'</div>');
+			var popoutBody = $("<div class='collapsible-body'><span>Lorem Ipsum</span></div>");
+			var listItem = $('<li>');
 
-        // append each returned result as a list item to the DOM
-      $(popoutList.append(listItem + popoutHeader + popoutBody));
-      $("#ajaxResults").append(popoutList);
+			// append each returned result as a list item to the DOM
+			marketList.append(listItem + popoutHeader + popoutBody);
+			$('#ajaxResults').append(marketList);
 		}
 	});
 }
