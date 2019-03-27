@@ -15,14 +15,10 @@ var map;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: { lat: 35.7796, lng: -78.6382 },
-		zoom: 9
+		zoom: 4
 	});
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.sidenav');
-//   var instances = M.Sidenav.init(elems, options);
-// });
 
 //-----------------------------------------------------------------------------------
 //CREATING SOME GLOBAL VARIABLES
@@ -59,51 +55,60 @@ function getMarketIdFromZipCode(zip) {
 		//var marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>");
 
 		//LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME
-		for (var i = 0; i < results.length; i++) {
+		for (var i = 0; i < 10; i++) {
 			id = results[i].id;
 			name = results[i].marketname;
       
       console.log(id + name);
-      // var listItem = $('<li>');
-     
-			// append each returned result as a list item to the DOM
-      // $("#marketList").html("<li>" + id + name + "</li>")
-      $("#marketList").append(name)
-      // $("#marketList").text(id)
-      
-			// $('#ajaxResults').append(marketList);
-    }
-    
-  // listItem.append(popoutHeader);
-	// 		$('#ajaxResults').append(marketList, );
-    // }
+      var listItem = $('<li>');
+      listItem.addClass("market-list");
+      listItem.text(name);
 
+      $("#marketList").append(listItem)
+    
+    }
 	});
 }
 
-//iterate through the JSON result object.
-// function searchResultsHandler(searchResults) {
-//     for (var key in searchresults) {
-//         alert(key);
-//         var results = searchresults[key];
-//         for (var i = 0; i < results.length; i++) {
-//             var result = results[i];
-//             for (var key in result) {
-//                 //only do an alert on the first search result
-//                 if (i == 0) {
-//                     alert(result[key]);
-//                 }
-//             }
-//         }
-//     }
-// }
-//-------------------------------------------------------------------------
 
-// Initialize collapsible (uncomment the lines below if you use the dropdown variation)
-// var collapsibleElem = document.querySelector('.collapsible');
-// var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+// window.eqfeed_callback = function(results) {
+//   for (var i = 0; i < results.features.length; i++) {
+//     // actually where you pull in the coordinates both are in an object
+//     var coords = results.features[i].geometry.coordinates;
+//     console.log(results)
+//     // var latLng = new google.maps.LatLng(coords[1],coords[0]);
+//     var latLng = [37.5, 95.7];
+//     var marker = new google.maps.Marker({
+//       position: latLng,
+//       map: map
+//     });
 
-// Or with jQuery
+
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 2,
+    center: new google.maps.LatLng(2.8,-187.3),
+    mapTypeId: 'terrain'
+  });
+
+  // Create a <script> tag and set the USGS URL as the source.
+  // var script = document.createElement('script');
+  // This example uses a local copy of the GeoJSON stored at
+  // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+  // aly commented next two lines
+  // script.src = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp';
+  // document.getElementsByTagName('head')[0].appendChild(script);
+
+  var geocoder = new google.maps.Geocoder();
+
+// document.getElementById('submit').addEventListener('click', function() {
+geocodeAddress(geocoder, map);
+// });
+
+}
+
 
 // $(document).ready(function(){
 //   $('.sidenav').sidenav();
