@@ -4,7 +4,7 @@ var map;
 // var geocoder;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 5,
+		zoom: 9,
 		center: new google.maps.LatLng(39.82, -98.57),
 		mapTypeId: 'terrain'
 	});
@@ -15,6 +15,9 @@ function initMap() {
 //CREATING SOME GLOBAL VARIABLES
 var zipCode = '';
 var marketId = '';
+var marketDetails = {};
+
+
 
 //------------------------------------------------------------------------------------------------
 //CLICKING ON THE SUBMIT BUTTON AND PASSING ZIP ARGUMENT IN THE GETMARKETIDFROMZIPCODE FUNCTION
@@ -23,16 +26,8 @@ $(document).on('click', '#submit', function(event) {
 	zipCode = $('#autocomplete-input').val().trim();
 	$('#autocomplete-input').html('').val(''); //EMPTY THE ZIP CODE FIELD
 	getMarketIdFromZipCode(zipCode);
-});
-
-//------------------------------------------------------------------------------------------------------
-//CLICKING THE MARKET NAME
-//AND GETTING DETAILS BY CALLING GETMARKETDETAILS FUNCTION BY PASSING
-//THE ID OBTAINED FROM THE GETMARKETIDFROMZIPCODE FUNCTION
-$(document).on('click', '.market-list', function(event) {
-	event.preventDefault();
-	marketId = $(this).attr('id');
-	getMarketDetails(marketId);
+	$('#marketList').empty();
+	initMap();
 });
 
 function searchResultsHandler(response) {
@@ -69,39 +64,19 @@ function getMarketIdFromZipCode(zip) {
 		contentType: 'application/json; charset=utf-8',
 		url: 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=' + zip,
 		dataType: 'jsonp',
-		jsonpCallback: 'searchResultsHandler'
+		success: searchResultsHandler
 	}); //END OF AJAX CALL
 }
 
-function detailResultHandler(detailResults) {
-	for (var key in detailResults) {
-		//variables to hold results of second usda API call.  Results printed to HTML in onclick event
-		var address = detailResults.marketdetails.Address;
-		var gLink = detailResults.marketdetails.GoogleLink;
-		var schedule = detailResults.marketdetails.Schedule;
-		var products = detailResults.marketdetails.Products;
-		console.log('address', address);
-
-		// geocodeAddress(new google.maps.Geocoder(), map, address);
-
-		// // var thisID = ($(this).id());
-		// $('#marketList').html(
-		// 	"<a target='_blank' href= " +
-		// 		gLink +
-		// 		'>Google Link</a>' +
-		// 		'<p> Address: ' +
-		// 		address +
-		// 		'</p>' +
-		// 		'<p> Schedule: ' +
-		// 		schedule +
-		// 		'</p>' +
-		// 		'<p> Products: ' +
-		// 		products +
-		// 		'</p>'
-		// );
-	} //end for loop
-}
 //--------------------------------------------------------------------------------------------------------------------------
+//CLICKING THE MARKET NAME AND GETTING DETAILS BY CALLING GETMARKETDETAILS FUNCTION BY PASSING
+//THE ID OBTAINED FROM THE GETMARKETIDFROMZIPCODE FUNCTION
+$(document).on('click', '.market-list', function(event) {
+	event.preventDefault();
+	marketId = $(this).attr('id');
+	getMarketDetails(marketId);
+	detailsMarket(marketId);
+});
 //PASSING MARKET ID INTO THE FUNCTION BELOW TO GET THE OTHER DEATAILS
 function getMarketDetails(argID) {
 	//$('#marketList').html('');
@@ -111,9 +86,46 @@ function getMarketDetails(argID) {
 		// submit a get request to the restful service mktDetail.
 		url: 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + argID,
 		dataType: 'jsonp',
-		jsonpCallback: 'detailResultHandler'
+		success: detailResultHandler.bind(null, argID)
 	}); //end ajax call
 } //end getSecondResults function
+
+function detailResultHandler(argID, detailResults) {
+	console.log('argID', argID);
+	var address = detailResults.marketdetails.Address;
+	var gLink = detailResults.marketdetails.GoogleLink;
+	var schedule = detailResults.marketdetails.Schedule;
+	var products = detailResults.marketdetails.Products;
+	console.log('address', address);
+
+	marketDetails[argID] = {
+		address: address,
+		gLink: gLink,
+		schedule: schedule,
+		products: products
+	};
+
+	geocodeAddress(new google.maps.Geocoder(), map, address);
+}
+
+function detailsMarket(marketId) {
+	var detailResults = marketDetails[marketId];
+	var mDetails = $('#marketList').html(
+		"<a target='_blank' href= " +
+			detailResults.gLink +
+			'>Google Link</a>' +
+			'<p> Address: ' +
+			detailResults.address +
+			'</p>' +
+			'<p> Schedule: ' +
+			detailResults.schedule +
+			'</p>' +
+			'<p> Products: ' +
+			detailResults.products +
+			'</p>'
+	);
+	$("#modal1").modal(mDetails);
+}
 
 //--------------------------------------------------------------------------------------------------
 // PUTS A MARKER IN RELATION TO EACH NAME OF EACH MARKET
