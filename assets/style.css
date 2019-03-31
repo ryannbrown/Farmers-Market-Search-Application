@@ -1,3 +1,4 @@
+
 body{
     background-image:url(/assets/images/background.jpg);
     background-size:cover;
@@ -5,9 +6,9 @@ body{
     /* background-color:black; */
 }
 
-
 .sidebar {
     height:600px;
+    overflow: auto;
 }
 
 .container{

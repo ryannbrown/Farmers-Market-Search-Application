@@ -25,9 +25,11 @@
             </script>
     <div class="container">
         <div class="row">
-            <div class="col m12 center-align title-text">Fresh Finder</div>
+          <div class="col m12 center-align title-text"><strong>Fresh Finder</strong></div>
+            <p class="center-align">Enter your Zip code to search for a Farmer's Market Near you!</p>
         </div>
     </div>
+
 
         <div class="container">
 
@@ -41,20 +43,19 @@
                     </div>
                     <div class="input-field col search-bar blue-grey lighten-4">
 
-                        <button id="submit" type="submit" class="fas fa-search mb-4"></button>
+                        <button id="submit" type="submit" class="fas fa-search mb-2">Submit</button>
                         <input type="text" id="autocomplete-input" class="autocomplete">
                         <br>
-                        <label for="autocomplete-input">Zip</label>
+                        <label for="autocomplete-input"></label> 
                     </div>
                     <!-- This div will yield our results when we click a point on the map? -->
                     <div class="row" id="ajaxResults">
-                        <h3 class="flow-text">Market ID and Name:</h3>
+                        <h3 class="flow-text"><strong>Market ID and Name:</strong></h3>
                         <!-- marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>"); -->
                         <ul id="marketList"></ul>
                     </div>
 
                 </div>
-
             </div>
 
         </div>
