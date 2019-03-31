@@ -1,10 +1,18 @@
+body{
+    background-image:url(/assets/images/background.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    /* background-color:black; */
+}
+
+
 .sidebar {
     height:600px;
 }
 
 .container{
     width:100%;
-    margin-top:5%;
+    margin-top:1%;
 }
 
 .map-container{
@@ -26,4 +34,9 @@
 
 .flow-text{
     margin-right: 10px;
+}
+
+.title-text{
+    font-size:36px;
+    font-family: 'Exo', sans-serif;
 }
