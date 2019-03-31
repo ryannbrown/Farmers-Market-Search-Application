@@ -1,5 +1,14 @@
+h1{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .sidebar {
     height:600px;
+    overflow: auto;
 }
 
 .container{
