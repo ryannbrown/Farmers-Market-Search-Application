@@ -4,58 +4,50 @@ var map;
 // var geocoder;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 9,
+		zoom: 8,
 		center: new google.maps.LatLng(39.82, -98.57),
 		mapTypeId: 'terrain'
 	});
 	// geocoder = new google.maps.Geocoder();
 }
 
+// PUTS A MARKER IN RELATION TO EACH NAME OF EACH MARKET
+function geocodeAddress(geocoder, resultsMap, address) {
+	geocoder.geocode({ address: address }, function (results, status) {
+		if (status === 'OK') {
+			resultsMap.setCenter(results[0].geometry.location);
+			var marker = new google.maps.Marker({
+				map: resultsMap,
+				position: results[0].geometry.location
+			});
+		} else {
+			console.log('Geocode was not successful for the following reason: ' + status);
+		}
+	});
+}
+
+
 //-----------------------------------------------------------------------------------
 //CREATING SOME GLOBAL VARIABLES
 var zipCode = '';
 var marketId = '';
-var marketDetails = {};
+var marketDetails = {}; //new object to store google link, address, shcedule and products 
 
+// $('.collapsible').collapsible();
 
 
 //------------------------------------------------------------------------------------------------
-//CLICKING ON THE SUBMIT BUTTON AND PASSING ZIP ARGUMENT IN THE GETMARKETIDFROMZIPCODE FUNCTION
-$(document).on('click', '#submit', function(event) {
+//CLICKING ON THE SUBMIT BUTTON
+$(document).on('click', '#submit', function (event) {
 	event.preventDefault();
 	zipCode = $('#autocomplete-input').val().trim();
 	$('#autocomplete-input').html('').val(''); //EMPTY THE ZIP CODE FIELD
 	getMarketIdFromZipCode(zipCode);
-	$('#marketList').empty();
-	initMap();
+	$('#marketList').empty(); //emptying out all previous records
+	initMap(); //every time map gets refreshed when the submit button is clicked
 });
 
-function searchResultsHandler(response) {
-	//RESULTS OBJECT FROM THE AJAX RESPONSE IS BEING DEFINED IN RESULTS VARIABLE
-	var results = response.results;
-
-	// var listingNumber = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
-	//LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME
-	for (var i = 0; i < 10; i++) {
-		id = results[i].id;
-		name = results[i].marketname;
-
-		console.log(id + name);
-
-		//PRINTING 10 NAMES ON HTML
-		var listItem = $('<li>');
-		listItem.attr('id', id);
-		listItem.addClass('market-list');
-		listItem.attr('listing-number', i);
-		listItem.text(name);
-
-		$('#marketList').append(listItem);
-
-		getMarketDetails(id);
-	} //END OF FOR LOOP
-}
-
-//SEARCH FARMERS MARKETS BY ZIPCODE API AND GET ID AND MARKETNAME
+//MAKING THE FIRST AJAX CALL WITH ZIP CODE
 function getMarketIdFromZipCode(zip) {
 	var id = '';
 	var name = '';
@@ -68,16 +60,41 @@ function getMarketIdFromZipCode(zip) {
 	}); //END OF AJAX CALL
 }
 
+//GETTING RESPONSE FROM FUNCTION
+function searchResultsHandler(response) {
+	//RESULTS OBJECT FROM THE AJAX RESPONSE IS BEING DEFINED IN RESULTS VARIABLE
+	var results = response.results;
+	var popoutList = $("<ul class='collapsible popout' id ='marketList' data-collapsible = 'accordion'>");
+	// popoutList.collapsible();
+
+	//LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME
+	for (var i = 0; i < 10; i++) {
+		id = results[i].id;
+		name = results[i].marketname;
+
+		//PRINTING 10 NAMES ON HTML
+		var listItem = $('<li>');
+		listItem.attr('id', id);
+		listItem.addClass('market-list');
+		listItem.text(name);
+
+		$('#marketList').append(listItem);
+
+		getMarketDetails(id);
+	} //END OF FOR LOOP
+} //END OF FUNCTION searchResultsHandler
+//END OF FIRST AJAX CALL 
+
 //--------------------------------------------------------------------------------------------------------------------------
-//CLICKING THE MARKET NAME AND GETTING DETAILS BY CALLING GETMARKETDETAILS FUNCTION BY PASSING
-//THE ID OBTAINED FROM THE GETMARKETIDFROMZIPCODE FUNCTION
-$(document).on('click', '.market-list', function(event) {
+//CLICKING THE MARKET NAME
+$(document).on('click', '.market-list', function (event) {
 	event.preventDefault();
 	marketId = $(this).attr('id');
 	getMarketDetails(marketId);
 	detailsMarket(marketId);
 });
-//PASSING MARKET ID INTO THE FUNCTION BELOW TO GET THE OTHER DEATAILS
+
+//MAKING THE SECOND AJAX CALL WITH MARKET ID
 function getMarketDetails(argID) {
 	//$('#marketList').html('');
 	$.ajax({
@@ -87,9 +104,10 @@ function getMarketDetails(argID) {
 		url: 'https://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=' + argID,
 		dataType: 'jsonp',
 		success: detailResultHandler.bind(null, argID)
-	}); //end ajax call
-} //end getSecondResults function
+	}); //end of ajax call
+} //end of getSecondResults function
 
+////GETTING RESPONSE FROM FUNCTION
 function detailResultHandler(argID, detailResults) {
 	console.log('argID', argID);
 	var address = detailResults.marketdetails.Address;
@@ -108,37 +126,23 @@ function detailResultHandler(argID, detailResults) {
 	geocodeAddress(new google.maps.Geocoder(), map, address);
 }
 
+//SEPARATE FUNCTION FOR PRINTING MARKET DETAILS BY PASSING MARKET ID
 function detailsMarket(marketId) {
 	var detailResults = marketDetails[marketId];
-	var mDetails = $('#marketList').html(
+	$('#marketList').html(
 		"<a target='_blank' href= " +
-			detailResults.gLink +
-			'>Google Link</a>' +
-			'<p> Address: ' +
-			detailResults.address +
-			'</p>' +
-			'<p> Schedule: ' +
-			detailResults.schedule +
-			'</p>' +
-			'<p> Products: ' +
-			detailResults.products +
-			'</p>'
+		detailResults.gLink +
+		'>Google Link</a>' +
+		'<p> Address: ' +
+		detailResults.address +
+		'</p>' +
+		'<p> Schedule: ' +
+		detailResults.schedule +
+		'</p>' +
+		'<p> Products: ' +
+		detailResults.products +
+		'</p>'
 	);
-	$("#modal1").modal(mDetails);
 }
+//END OF CLICK EVENT, SUBSEQUENT AJAX CALL AND GETTING RESPONSE BACK
 
-//--------------------------------------------------------------------------------------------------
-// PUTS A MARKER IN RELATION TO EACH NAME OF EACH MARKET
-function geocodeAddress(geocoder, resultsMap, address) {
-	geocoder.geocode({ address: address }, function(results, status) {
-		if (status === 'OK') {
-			resultsMap.setCenter(results[0].geometry.location);
-			var marker = new google.maps.Marker({
-				map: resultsMap,
-				position: results[0].geometry.location
-			});
-		} else {
-			console.log('Geocode was not successful for the following reason: ' + status);
-		}
-	});
-}

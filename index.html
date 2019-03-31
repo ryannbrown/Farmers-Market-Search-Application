@@ -1,68 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Farmers Market Finder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="assets/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-    
-</head>
-<body>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Farmers Market Finder</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="assets/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+    </head>
+
+    <body>
         <!-- //Maps Javascript API -->
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFRyu277w4V5p1mjxGseqqo1yRXqBRbBw&callback=initMap">
-      </script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFRyu277w4V5p1mjxGseqqo1yRXqBRbBw&callback=initMap">
+            </script>
 
 
-    <div class="container">
+        <div class="container">
 
-        <div class="row">
-            <div class="col m9 map-container teal lighten-4" id="map"> Map will go here
-                
-            </div>
-            <div class="col m3 sidebar teal lighten-2">
-                <div>
-                    
+            <div class="row">
+                <div class="col m9 map-container teal lighten-4" id="map"> Map will go here
+
                 </div>
-                <div class="input-field col search-bar blue-grey lighten-4">
+                <div class="col m3 sidebar teal lighten-2">
+                    <div>
 
-                    <button id="submit" type="submit" class="fas fa-search mb-4"></button>
-                    <input type="text" id="autocomplete-input" class="autocomplete">
-                    <br>
-                    <label for="autocomplete-input">Zip</label>
+                    </div>
+                    <div class="input-field col search-bar blue-grey lighten-4">
+
+                        <button id="submit" type="submit" class="fas fa-search mb-4"></button>
+                        <input type="text" id="autocomplete-input" class="autocomplete">
+                        <br>
+                        <label for="autocomplete-input">Zip</label>
+                    </div>
+                    <!-- This div will yield our results when we click a point on the map? -->
+                    <div class="row" id="ajaxResults">
+                        <h3 class="flow-text">Market ID and Name:</h3>
+                        <!-- marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>"); -->
+                        <ul id="marketList"></ul>
+                    </div>
+
                 </div>
-                <!-- This div will yield our results when we click a point on the map? -->
-                <div class="row" id="ajaxResults">
-                    <p>Market ID and Name:</p>
-                    <!-- marketList = $("<ul class='collapsible popout' data-collapsible='accordion'>"); -->
-                        <ul id = "marketList"></ul>
-                </div>
-                          
+
             </div>
 
         </div>
 
-    
+        <script src="assets/app.js"></script>
+    </body>
 
-
-
-
-
-
-
-
-
-    </div>
-
-    <script src="assets/app.js"></script>
-</body>
 </html>
