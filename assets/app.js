@@ -4,7 +4,7 @@ var map;
 // var geocoder;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 8,
+		zoom: 4,
 		center: new google.maps.LatLng(39.82, -98.57),
 		mapTypeId: 'terrain'
 	});
@@ -19,7 +19,9 @@ function geocodeAddress(geocoder, resultsMap, address) {
 			var marker = new google.maps.Marker({
 				map: resultsMap,
 				position: results[0].geometry.location
+				
 			});
+			map.setZoom(10) //ZOOMS IN ON RESULTS
 		} else {
 			console.log('Geocode was not successful for the following reason: ' + status);
 		}
