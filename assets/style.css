@@ -37,11 +37,15 @@ html{
 }
 
 .blue-grey.lighten-4{
-    background-color: #aadaff !important;
+    background-color:white !important;
 }
 
 .teal.lighten-2 {
     background-color: #ffffff !important;
+}
+
+.teal.lighten-4 {
+    background-color: #aadaff !important;
 }
 
 .map-container{
@@ -102,7 +106,7 @@ html{
 
     .subtitle-text {
         font-size: 19px;
-        padding-bottom: 10%;
+        /* padding-bottom: 10%; */
     }
 
 html {
