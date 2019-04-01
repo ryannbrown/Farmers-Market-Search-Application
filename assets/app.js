@@ -2,7 +2,7 @@ $(document).ready(function() {
 	//--------------------------------------------------DISPLAYS INITIAL MAP------------------------------------------------------------------
     var map;
 
-    var img = $('<img id="dynamic" class="col m9 map-container teal lighten-4">'); 
+    var img = $('<img id="dynamic" class="col s7 m9 map-container teal lighten-4">'); 
     var imgurl = "placeholder.jpg"
 
     img.attr('src', imgurl);
