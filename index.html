@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Farmers Market Finder</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-        <link href="https://fonts.googleapis.com/css?family=Exo|Lato" rel="stylesheet">
+        <!--Import Google Icon Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Bellefair|Roboto:500i" rel="stylesheet">
+    
+        <!-- Compiled and minified Materialize CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+        <!-- link to css stylesheet -->
         <link rel="stylesheet" href="assets/style.css">
-    </head>
+    
+        <!--website optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Farmer's Market</title>
+      </head>
 
     <body>
         <!-- //Maps Javascript API -->
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFRyu277w4V5p1mjxGseqqo1yRXqBRbBw&callback=initMap">
-            </script>
-
+        </script>
         
             
-    <div class="container">
+        <div class="container">
             <div><img id="background-img" src="assets/images/background.jpg"></div>
         <div class="row">
           <div class="col s12 m12 center-align title-text"><strong>Fresh Finder</strong></div>
@@ -38,12 +35,9 @@
 
 
         <div class="container feature-container z-depth-5">
-
             <div class="row">
-                <div class="col s8 m9 map-container teal lighten-4" id="map"> Map will go here
-
-                </div>
-                <div class="col s4 m3 sidebar teal lighten-2">
+                <div class="col m9 map-container teal lighten-4" id="map"><img></img></div>
+                <div class="col m3 sidebar teal lighten-2">
                     <div>
 
                     </div>
@@ -53,6 +47,9 @@
                         <input type="text" id="autocomplete-input" class="autocomplete" placeholder="Enter Zip Code Here">
                         <br>
                         <label for="autocomplete-input"></label> 
+                        <div class="row" id="ajaxResults">
+                            <h3 class="flow-text"></h3>
+                        </div>
                     </div>
                     <!-- This div will yield our results when we click a point on the map? -->
                     <div class="row" id="ajaxResults">
@@ -66,7 +63,18 @@
 
         </div>
         
-        <script src="assets/app.js"></script>
+        <!-- scripts -->
+    <!-- Firebase  -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script> -->
+    <!-- Minified jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Compiled and minified Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Github:buttons -->
+    <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
+    <!-- App.js file for primary app logic -->
+    <script type="text/javascript" src="assets/app.js"></script>
+    <!-- end scripts -->
     </body>
 
 </html>
