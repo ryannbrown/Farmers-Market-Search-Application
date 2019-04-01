@@ -45,7 +45,8 @@ $(document).on('click', '#submit', function (event) {
 	zipCode = $('#autocomplete-input').val().trim();
 	$('#autocomplete-input').html('').val(''); //EMPTY THE ZIP CODE FIELD
 	getMarketIdFromZipCode(zipCode);
-	$('#marketList').empty(); //emptying out all previous records
+	// $('#ajaxResults').empty(); //emptying out all previous records
+	$('#marketList').empty();
 	initMap(); //every time map gets refreshed when the submit button is clicked
 });
 
@@ -66,7 +67,7 @@ function getMarketIdFromZipCode(zip) {
 function searchResultsHandler(response) {
 	//RESULTS OBJECT FROM THE AJAX RESPONSE IS BEING DEFINED IN RESULTS VARIABLE
 	var results = response.results;
-	var popoutList = $("<ul class='collapsible popout' id ='marketList' data-collapsible = 'accordion'>");
+	var popoutList = $("<ul class='collapsible' id ='marketList' data-collapsible = 'accordion'>");
 	// popoutList.collapsible();
 
 	//LOOPING THROUGH EVERY RESULT AND GETTING THE ID AND MARKET NAME
@@ -75,12 +76,21 @@ function searchResultsHandler(response) {
 		name = results[i].marketname;
 
 		//PRINTING 10 NAMES ON HTML
-		var listItem = $('<li>');
-		listItem.attr('id', id);
-		listItem.addClass('market-list');
-		listItem.text(name);
+		var popoutHead = "<div id='" + id + "' class='collapsible-header'>" + name + "</div>";
+		var popoutBody = "<div class='collapsible-body'><span>Lorem Ipsum</span></div>";
 
-		$('#marketList').append(listItem);
+		var listItem = $('<li>');
+		// listItem.attr('id', id);
+		// listItem.addClass('market-list');
+		// listItem.text(name);
+
+		popoutList.append(listItem + popoutHead + popoutBody);
+
+		//$('#marketList').append(listItem);
+
+		$('#ajaxResults').append(popoutList);
+
+		
 
 		getMarketDetails(id);
 	} //END OF FOR LOOP
@@ -89,7 +99,7 @@ function searchResultsHandler(response) {
 
 //--------------------------------------------------------------------------------------------------------------------------
 //CLICKING THE MARKET NAME
-$(document).on('click', '.market-list', function (event) {
+$(document).on('click', '.collapsible-header', function (event) {
 	event.preventDefault();
 	marketId = $(this).attr('id');
 	getMarketDetails(marketId);
