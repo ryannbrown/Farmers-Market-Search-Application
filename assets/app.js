@@ -11,7 +11,7 @@ function initMap() {
 	// geocoder = new google.maps.Geocoder();
 }
    // Each marker is labeled with a single alphabetical character.
-   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   var labels = "ABCDEFGHIJ";
    var labelIndex = 0;
 
 // PUTS A MARKER IN RELATION TO EACH NAME OF EACH MARKET
@@ -22,6 +22,7 @@ function geocodeAddress(geocoder, resultsMap, address) {
 			var marker = new google.maps.Marker({
 				map: resultsMap,
 				position: results[0].geometry.location,
+				animation: google.maps.Animation.DROP,
 				label: labels[labelIndex++ % labels.length]
 				
 			});
@@ -51,12 +52,13 @@ $(document).on('click', '#submit', function (event) {
 	getMarketIdFromZipCode(zipCode);
 	$('#marketList').empty(); //emptying out all previous records
 	initMap(); //every time map gets refreshed when the submit button is clicked
+	return zipCode;
 });
-
+var name;
 //MAKING THE FIRST AJAX CALL WITH ZIP CODE
 function getMarketIdFromZipCode(zip) {
 	var id = '';
-	var name = '';
+	 name = '';
 	$.ajax({
 		type: 'GET',
 		contentType: 'application/json; charset=utf-8',
@@ -83,7 +85,7 @@ function searchResultsHandler(response) {
 		var listItem = $('<li>');
 		listItem.attr('id', id);
 		listItem.addClass('market-list');
-		listItem.text(name);
+		listItem.text(labels[i] + " " + name);
 		
 		$('#marketList').append(listItem);
 		// listItem.[labelIndex++ % labels.length];
@@ -95,6 +97,14 @@ function searchResultsHandler(response) {
 //--------------------------------------------------------------------------------------------------------------------------
 //CLICKING THE MARKET NAME
 $(document).on('click', '.market-list', function (event) {
+	event.preventDefault();
+	marketId = $(this).attr('id');
+	getMarketDetails(marketId);
+	detailsMarket(marketId);
+	
+});
+
+$(document).on('click', '#back-btn', function (event) {
 	event.preventDefault();
 	marketId = $(this).attr('id');
 	getMarketDetails(marketId);
@@ -149,7 +159,7 @@ function detailsMarket(marketId) {
 		"<h5> Market Details </h5> " +
 		"<a target='_blank' href= " +
 		detailResults.gLink +
-		'>Google Link</a>' +
+		'<a> Market Location </a>' +
 		'<p> Address: ' +
 		detailResults.address +
 		'</p>' +
