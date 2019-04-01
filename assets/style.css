@@ -32,7 +32,7 @@ html{
 }
 
 .feature-container{
-    max-width:75%;
+    max-width:85%;
     border: 4px solid #1c9283;
 }
 
@@ -77,4 +77,50 @@ html{
 
 .subtitle-text{
     font-size:22px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #background-img {
+      height:100%;
+    }
+    .feature-container{
+        max-width:95%;
+        
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        margin-top: 0%;
+        z-index: 5;
+        max-width: 100%;
+        margin-bottom: -10%;
+        margin-top: -8%;
+    }
+    
+
+    .subtitle-text {
+        font-size: 19px;
+        padding-bottom: 10%;
+    }
+
+html {
+    font-size: 11px;
+}
+  }
+
+  @media only screen and (min-width: 600px) and (max-width:1060px) {
+    #background-img{
+        height:100%;
+    }
+    .feature-container{
+        max-width:95%;
+        margin-bottom:-10%;
+        margin-top: 0%;
+    }
+    html {
+        font-size: 15px;
+    }
+   
 }
