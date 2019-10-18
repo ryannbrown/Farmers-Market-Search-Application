@@ -12,7 +12,7 @@ This is our first release with hope of future improvements.
 # How this app works
 In this web application, we have created an app to find a farmer's market close to you based on your zip code. The app will then pull 10 markets. You can click on a particular market and the rest of the details will show up. The detailed info tells you about the products, the schedule, the address and also the google link to navigate to that address. Here is the link of the app:
 
-https://ryannbrown.github.io/Group-Project-1/
+https://ryannbrown.github.io/Farmers-Market-Search-Application/
 
 # Built with
 We used javaScript, jQuery and Materialize. 
